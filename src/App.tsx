@@ -5,6 +5,13 @@ function App() {
   const z = useZero<Schema>();
   const [contacts] = useQuery(z.query.contacts);
 
+  const toggleNewsletter = (id: number, prev: boolean) => {
+    z.mutate.contacts.update({
+      id,
+      has_newsletter: !prev,
+    });
+  };
+
   // If initial sync hasn't completed, these can be empty.
   if (!contacts.length) {
     return null;
@@ -18,6 +25,8 @@ function App() {
             <th>ID</th>
             <th>First Name</th>
             <th>Last Name</th>
+            <th>Tags</th>
+            <th>Newsletter</th>
           </tr>
         </thead>
         <tbody>
@@ -26,6 +35,16 @@ function App() {
               <td align="left">{contact.id}</td>
               <td align="left">{contact.first_name}</td>
               <td align="left">{contact.last_name}</td>
+              <td>{contact.tags}</td>
+              <td>
+                <input
+                  type="checkbox"
+                  checked={contact.has_newsletter}
+                  onChange={() => {
+                    toggleNewsletter(contact.id, contact.has_newsletter);
+                  }}
+                />
+              </td>
             </tr>
           ))}
         </tbody>
