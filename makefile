@@ -30,3 +30,6 @@ lint: ## lint the code
 
 clean: ## clean the zero cache
 	npm run dev:clean
+
+supabase-status: ## get local supabase status, keys and secrets
+	npx supabase status

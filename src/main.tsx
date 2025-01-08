@@ -14,12 +14,17 @@ const supabase = createClient(
 const {
   data: { user },
 } = await supabase.auth.getUser();
-
 const userID = user?.id ?? "anon";
 
 const z = new Zero({
   userID,
-  auth: userID,
+  auth: async () => {
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+    const token = session?.access_token;
+    return token;
+  },
   server: import.meta.env.VITE_PUBLIC_SERVER,
   schema,
   // This is often easier to develop with if you're frequently changing
