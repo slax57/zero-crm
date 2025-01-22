@@ -39,7 +39,6 @@ const contactsSchema = createTableSchema({
     avatar: "json",
     has_newsletter: "boolean",
     status: "string",
-    tags: "string",
     company_id: "number",
     sales_id: "number",
     linkedin_url: "string",

@@ -25,7 +25,6 @@ function App() {
             <th>ID</th>
             <th>First Name</th>
             <th>Last Name</th>
-            <th>Tags</th>
             <th>Newsletter</th>
           </tr>
         </thead>
@@ -35,7 +34,6 @@ function App() {
               <td align="left">{contact.id}</td>
               <td align="left">{contact.first_name}</td>
               <td align="left">{contact.last_name}</td>
-              <td>{contact.tags}</td>
               <td>
                 <input
                   type="checkbox"
