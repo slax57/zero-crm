@@ -9,7 +9,9 @@ import {
   createSchema,
   createTableSchema,
   definePermissions,
+  ExpressionBuilder,
   Row,
+  ANYONE_CAN,
 } from "@rocicorp/zero";
 
 const salesSchema = createTableSchema({
@@ -65,6 +67,29 @@ export type Schema = typeof schema;
 export type Sale = Row<typeof salesSchema>;
 export type Contact = Row<typeof contactsSchema>;
 
-export const permissions = definePermissions<string, Schema>(schema, () => {
-  return {};
+// The contents of your decoded JWT.
+type AuthData = {
+  sub: string | null;
+};
+
+export const permissions = definePermissions<AuthData, Schema>(schema, () => {
+  const allowContactIfSalesMatch = (
+    authData: AuthData,
+    { exists }: ExpressionBuilder<typeof contactsSchema>
+  ) => exists("sales", (q) => q.where("user_id", "=", authData.sub ?? ""));
+
+  return {
+    contacts: {
+      row: {
+        // anyone can insert
+        insert: ANYONE_CAN,
+        // only sales can edit their own contacts
+        update: {
+          preMutation: [allowContactIfSalesMatch],
+        },
+        // anyone can delete
+        delete: ANYONE_CAN,
+      },
+    },
+  };
 });

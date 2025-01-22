@@ -1,7 +1,13 @@
 import { ContactList } from "./ContactList";
+import { UserInfo } from "./UserInfo";
 
 function App() {
-  return <ContactList />;
+  return (
+    <>
+      <UserInfo />
+      <ContactList />
+    </>
+  );
 }
 
 export default App;
