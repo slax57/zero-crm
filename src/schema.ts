@@ -44,6 +44,13 @@ const contactsSchema = createTableSchema({
     linkedin_url: "string",
   },
   primaryKey: "id",
+  relationships: {
+    sales: {
+      sourceField: "sales_id",
+      destSchema: salesSchema,
+      destField: "id",
+    },
+  },
 });
 
 export const schema = createSchema({

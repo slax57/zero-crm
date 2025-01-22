@@ -3,7 +3,9 @@ import { Schema } from "./schema";
 
 function App() {
   const z = useZero<Schema>();
-  const [contacts] = useQuery(z.query.contacts);
+  const [contacts] = useQuery(
+    z.query.contacts.related("sales", (sales) => sales.one())
+  );
 
   const toggleNewsletter = (id: number, prev: boolean) => {
     z.mutate.contacts.update({
@@ -26,6 +28,7 @@ function App() {
             <th>First Name</th>
             <th>Last Name</th>
             <th>Newsletter</th>
+            <th>Sales</th>
           </tr>
         </thead>
         <tbody>
@@ -42,6 +45,9 @@ function App() {
                     toggleNewsletter(contact.id, contact.has_newsletter);
                   }}
                 />
+              </td>
+              <td align="left">
+                {contact.sales?.first_name} {contact.sales?.last_name}
               </td>
             </tr>
           ))}
