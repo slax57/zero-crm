@@ -5,22 +5,12 @@ help:
 
 install: package.json ## install dependencies
 	npm install;
-	
-start-supabase: ## start supabase locally
-	npx supabase start
 
 start-zero: ## start the Zero cache
 	npm run dev:zero-cache
 
 start-app: ## start the app locally
 	npm run dev:ui
-
-start: start-supabase start-zero start-app ## start the stack locally
-
-stop-supabase: ## stop local supabase
-	npx supabase stop
-
-stop: stop-supabase ## stop the stack locally
 
 build: ## build the app
 	npm run build
@@ -30,6 +20,3 @@ lint: ## lint the code
 
 clean: ## clean the zero cache
 	npm run dev:clean
-
-supabase-status: ## get local supabase status, keys and secrets
-	npx supabase status
