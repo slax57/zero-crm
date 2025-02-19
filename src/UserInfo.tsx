@@ -6,7 +6,10 @@ export const UserInfo = () => {
   const sales = useQuery(z.query.sales.where("user_id", "=", z.userID).one());
   return (
     <div>
-      Currently logged in as {sales[0]?.first_name} {sales[0]?.last_name}
+      Currently logged in as{" "}
+      <span className="sales-name">
+        {sales[0]?.first_name} {sales[0]?.last_name}
+      </span>
     </div>
   );
 };

@@ -34,13 +34,15 @@ export const ContactList = () => {
 
   return (
     <>
-      <label htmlFor="onlyMyContacts">Only show my contacts</label>
-      <input
-        id="onlyMyContacts"
-        type="checkbox"
-        checked={onlyMine}
-        onChange={toggleOnlyMine}
-      />
+      <div className="checkbox-container">
+        <label htmlFor="onlyMyContacts">Only show my contacts</label>
+        <input
+          id="onlyMyContacts"
+          type="checkbox"
+          checked={onlyMine}
+          onChange={toggleOnlyMine}
+        />
+      </div>
       <table border={1} cellSpacing={0} cellPadding={6} width="100%">
         <thead>
           <tr>
